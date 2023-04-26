@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
-import { Container, Grid, Typography, Paper, Box } from "@mui/material";
+import { Container, Grid, Typography, Box } from "@mui/material";
 import data from './data/data.json'
 import TeamCard from "./components/TeamCard";
 
