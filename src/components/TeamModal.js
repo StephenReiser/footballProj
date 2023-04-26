@@ -26,75 +26,27 @@ import {
 }));
 
   
-  const TeamModal = ({ open, handleClose, team }) => {
+const TeamModal = ({ open, handleClose, team, rushTdShares, updateRushTdShare, recTdShares, targetShares, rushShares, yardsPerRushAttempt, catchRates, yardsPerTarget, updateRecTdShare, updateTargetShare, updateRushShare, updateYardsPerRushAttempt, updateCatchRate, updateYardsPerTarget}) => {
+
 
     const teamRushTD = team.TD;
     const teamPassTD = team.Pass_TD;
     const rushPlays = team.Rush_att;
     const passPlays = team.Pass_att;
-    const [rushTdShares, setRushTdShares] = useState(
-        team.players.map((player) => player.rushTdShare)
-      );
-      const [recTdShares, setRecTdShares] = useState(
-        team.players.map((player) => player.recTdShare)
-      );
-      const [targetShares, setTargetShares] = useState(
-        team.players.map((player) => player.targetShare)
-      );
-      const [rushShares, setRushShares] = useState(
-        team.players.map((player) => player.rushShare)
-      );
-      const [yardsPerRushAttempt, setYardsPerRushAttempt] = useState(team.players.map(player => player["Y/A"]));
-      const [catchRates, setCatchRates] = useState(team.players.map(player => player["Ctch%"]));
-      const [yardsPerTarget, setYardsPerTarget] = useState(team.players.map(player => player["Y/Tgt"]));
+  
+      
 
     // Update functions for rushTdShare, recTdShare, targetShare, and rushShare input fields
-        const updateRushTdShare = (index, value) => {
-            const newRushTdShares = [...rushTdShares];
-            newRushTdShares[index] = parseFloat(value) / 100 || 0;
-            setRushTdShares(newRushTdShares);
-        };
-        const updateRecTdShare = (index, value) => {
-            const newRecTdShares = [...recTdShares];
-            newRecTdShares[index] = parseFloat(value) / 100 || 0;
-            setRecTdShares(newRecTdShares);
-        };
-        const updateTargetShare = (index, value) => {
-            const newTargetShares = [...targetShares];
-            newTargetShares[index] = parseFloat(value) / 100 || 0;
-            setTargetShares(newTargetShares);
-        };
-        const updateRushShare = (index, value) => {
-            const newRushShares = [...rushShares];
-            newRushShares[index] = parseFloat(value) / 100 || 0;
-            setRushShares(newRushShares);
-        };
-        const updateYardsPerRushAttempt = (index, value) => {
-            const newYardsPerRushAttempt = [...yardsPerRushAttempt];
-            newYardsPerRushAttempt[index] = parseFloat(value);
-            setYardsPerRushAttempt(newYardsPerRushAttempt);
-          };
-          
-          const updateCatchRate = (index, value) => {
-            const newCatchRates = [...catchRates];
-            newCatchRates[index] = parseFloat(value) / 100 || 0;
-            setCatchRates(newCatchRates);
-          };
-          
-          const updateYardsPerTarget = (index, value) => {
-            const newYardsPerTarget = [...yardsPerTarget];
-            newYardsPerTarget[index] = parseFloat(value);
-            setYardsPerTarget(newYardsPerTarget);
-          };
+
           
         const totalRushTdShare = rushTdShares.reduce((sum, share) => sum + share, 0);
         const totalRecTdShare = recTdShares.reduce((sum, share) => sum + share, 0);
         const totalTargetShare = targetShares.reduce((sum, share) => sum + share, 0);
         const totalRushShare = rushShares.reduce((sum, share) => sum + share, 0);
         const totalRecYds = team.players.reduce((sum, _, index) => sum + (yardsPerTarget[index] * targetShares[index] * passPlays), 0);
-
+          
     return (
-        <Dialog open={open} onClose={handleClose} fullWidth maxWidth="md">
+        <Dialog open={open} onClose={handleClose} fullWidth maxWidth="lg">
         <DialogTitle>{team.Tm} Players</DialogTitle>
         <DialogContent>
         <TableContainer component={Paper} sx={{ maxHeight: "calc(100vh - 200px)", overflowY: "auto" }}>
@@ -160,14 +112,22 @@ import {
               const receptions = catchRates[index] * targets;
               const recYds = yardsPerTarget[index] * targets;
               const rushYds = yardsPerRushAttempt[index] * rushAtt;
-              const fPts = receptions + (recYds + rushYds)/10 + (rushTD + recTD)*6
+            //   const fPts = receptions + (recYds + rushYds)/10 + (rushTD + recTD)*6
             //   const receptions = targets * player.catchRate;
             //   const recYds = receptions * player.yardsPerReception;
             //   const rushYds = rushAtt * player.yardsPerRush;
+            const qbIndexWithHighestRushShare = rushShares.reduce(
+                (maxIndex, share, index, array) => (team.players[index].Pos === 'QB' && share > array[maxIndex] ? index : maxIndex),
+                team.players.findIndex(player => player.Pos === 'QB')
+              );
+          
+              const isStarterQB = index === qbIndexWithHighestRushShare;
+              const additionalQBPoints = isStarterQB ? (teamPassTD * 4) + (totalRecYds / 25) : 0;
+              const fPts = receptions + (recYds + rushYds) / 10 + (rushTD + recTD) * 6 + additionalQBPoints;
 
               return (
                 <TableRow key={player.Player}>
-                  <StyledPlayerTableCell>{player.Player}</StyledPlayerTableCell>
+                  <StyledPlayerTableCell>{player.Player} {isStarterQB ? "(Starter)" : ""}</StyledPlayerTableCell>
                     
                   
                 <TableCell>{player.Pos}</TableCell>

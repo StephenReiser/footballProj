@@ -30,6 +30,62 @@ const TeamCard = ({ team }) => {
   );
   const [totalTDs, setTotalTDs] = useState(parseFloat(team.Pass_TD + team.TD).toFixed(1));
 
+  // State previously in TeamModal:
+  const [rushTdShares, setRushTdShares] = useState(
+    team.players.map((player) => player.rushTdShare)
+  );
+  const [recTdShares, setRecTdShares] = useState(
+    team.players.map((player) => player.recTdShare)
+  );
+  const [targetShares, setTargetShares] = useState(
+    team.players.map((player) => player.targetShare)
+  );
+  const [rushShares, setRushShares] = useState(
+    team.players.map((player) => player.rushShare)
+  );
+  const [yardsPerRushAttempt, setYardsPerRushAttempt] = useState(team.players.map(player => player["Y/A"]));
+  const [catchRates, setCatchRates] = useState(team.players.map(player => player["Ctch%"]));
+  const [yardsPerTarget, setYardsPerTarget] = useState(team.players.map(player => player["Y/Tgt"]));
+
+  // Update Functions Previously in Modal:
+  const updateRushTdShare = (index, value) => {
+    const newRushTdShares = [...rushTdShares];
+    newRushTdShares[index] = parseFloat(value) / 100 || 0;
+    setRushTdShares(newRushTdShares);
+};
+
+const updateRecTdShare = (index, value) => {
+  const newRecTdShares = [...recTdShares];
+  newRecTdShares[index] = parseFloat(value) / 100 || 0;
+  setRecTdShares(newRecTdShares);
+};
+const updateTargetShare = (index, value) => {
+  const newTargetShares = [...targetShares];
+  newTargetShares[index] = parseFloat(value) / 100 || 0;
+  setTargetShares(newTargetShares);
+};
+const updateRushShare = (index, value) => {
+  const newRushShares = [...rushShares];
+  newRushShares[index] = parseFloat(value) / 100 || 0;
+  setRushShares(newRushShares);
+};
+const updateYardsPerRushAttempt = (index, value) => {
+  const newYardsPerRushAttempt = [...yardsPerRushAttempt];
+  newYardsPerRushAttempt[index] = parseFloat(value);
+  setYardsPerRushAttempt(newYardsPerRushAttempt);
+};
+
+const updateCatchRate = (index, value) => {
+  const newCatchRates = [...catchRates];
+  newCatchRates[index] = parseFloat(value) / 100 || 0;
+  setCatchRates(newCatchRates);
+};
+
+const updateYardsPerTarget = (index, value) => {
+  const newYardsPerTarget = [...yardsPerTarget];
+  newYardsPerTarget[index] = parseFloat(value);
+  setYardsPerTarget(newYardsPerTarget);
+};
 //   Functions:
     const handleOpen = () => {
         setOpen(true);
@@ -173,7 +229,10 @@ const TeamCard = ({ team }) => {
                 View Players
                 </Button>
                 {/* Modal implementation */}
-                <TeamModal open={open} handleClose={handleClose} team={team} />
+                <TeamModal open={open} handleClose={handleClose} team={team} rushTdShares={rushTdShares} setRushTdShares={setRushTdShares} updateRushTdShare={updateRushTdShare}
+                recTdShares={recTdShares} targetShares={targetShares} rushShares={rushShares} yardsPerRushAttempt={yardsPerRushAttempt} catchRates={catchRates} yardsPerTarget={yardsPerTarget}
+                updateRecTdShare={updateRecTdShare} updateTargetShare={updateTargetShare} updateRushShare={updateRushShare} updateYardsPerRushAttempt={updateYardsPerRushAttempt}
+                updateCatchRate={updateCatchRate} updateYardsPerTarget={updateYardsPerTarget}/>
             </Grid>
           </Grid>
         </Box>
