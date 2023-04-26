@@ -1,25 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import * as React from "react";
+import { useState, useEffect } from "react";
+import { Container, Grid, Typography, Paper, Box } from "@mui/material";
+import data from './data/data.json'
+import TeamCard from "./components/TeamCard";
 
 function App() {
+  const [teams, setTeams] = useState([]);
+
+  useEffect(() => {
+    setTeams(data);
+  }, []);
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Container maxWidth="lg">
+        <Box sx={{ mt: 4 }}>
+          <Typography variant="h4" gutterBottom>
+            NFL Teams - 2023
+          </Typography>
+          <Grid container spacing={4}>
+            {teams.map((team) => (
+              <TeamCard key={team.Tm} team={team} />
+            ))}
+          </Grid>
+        </Box>
+        {/* <StatsTable /> */}
+      </Container>
     </div>
   );
+  
 }
 
 export default App;
