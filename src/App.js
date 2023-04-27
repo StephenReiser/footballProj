@@ -1,25 +1,25 @@
 import * as React from "react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Container, Grid, Typography, Box, Button } from "@mui/material";
 import data from './data/data.json'
 import TeamCard from "./components/TeamCard";
 
 function App() {
   const [teams, setTeams] = useState(data);
-  const [playerData, setPlayerData] = React.useState([]);
+  // const [playerData, setPlayerData] = React.useState([]);
 
 
-  // useEffect(() => {
-  //   setTeams(data);
-  // }, []);
-  const updatePlayerData = (teamId, updatedPlayers) => {
-    setPlayerData((prevData) => {
-      const newData = [...prevData];
-      const teamIndex = newData.findIndex((team) => team.id === teamId);
-      newData[teamIndex].players = updatedPlayers;
-      return newData;
-    });
-  };
+  // // useEffect(() => {
+  // //   setTeams(data);
+  // // }, []);
+  // const updatePlayerData = (teamId, updatedPlayers) => {
+  //   setPlayerData((prevData) => {
+  //     const newData = [...prevData];
+  //     const teamIndex = newData.findIndex((team) => team.id === teamId);
+  //     newData[teamIndex].players = updatedPlayers;
+  //     return newData;
+  //   });
+  // };
 
   const updateTeamData = (updatedTeam) => {
     setTeams((prevTeams) => {
