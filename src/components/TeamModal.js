@@ -11,6 +11,7 @@ import {
     Paper,
   } from "@mui/material";
   import { styled } from "@mui/system";
+
   const StyledTableCell = styled(TableCell)(({ theme }) => ({
     fontWeight: "bold",
     backgroundColor: theme.palette.primary.main,

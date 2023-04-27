@@ -11,7 +11,7 @@ import { useState } from "react";
 import TeamModal from "./TeamModal";
 
 
-const TeamCard = ({ team }) => {
+const TeamCard = ({ team, updateTeamData }) => {
     console.log(team)
     const [open, setOpen] = useState(false);
     const [passTDs, setPassTDs] = useState(team.Pass_TD);
@@ -86,6 +86,8 @@ const updateYardsPerTarget = (index, value) => {
   newYardsPerTarget[index] = parseFloat(value);
   setYardsPerTarget(newYardsPerTarget);
 };
+
+
 //   Functions:
     const handleOpen = () => {
         setOpen(true);
@@ -110,6 +112,10 @@ const updateYardsPerTarget = (index, value) => {
       setRushTDs(totalTDs * value/100);
       setPassTDs(totalTDs * (100 - value)/100);
     }
+      // Update the team data
+    team.Pass_TD = passTDs;
+    team.TD = rushTDs;
+    updateTeamData(team);
   };
   
     const handlePlayPercentageChange = (event) => {
@@ -123,6 +129,10 @@ const updateYardsPerTarget = (index, value) => {
         setPassPerc(value);
         setRushPerc(100 - value);
         }
+        // Update the team data
+        team.Rush_att = (rushPerc / 100 * totalPlays).toFixed(1);
+        team.Pass_att = (passPerc / 100 * totalPlays).toFixed(1);
+        updateTeamData(team);
     };
   const handleTotalTDsChange = (event) => {
     const newTotalTDs = parseInt(event.target.value, 10);
@@ -130,6 +140,10 @@ const updateYardsPerTarget = (index, value) => {
     setTotalTDs(newTotalTDs);
     setPassTDs(Math.round(newTotalTDs * passTDPercentage/100));
     setRushTDs(Math.round(newTotalTDs * rushTDPercentage/100));
+    // Update the team data
+    team.Pass_TD = passTDs;
+    team.TD = rushTDs;
+    updateTeamData(team);
   };
   const handleTotalPlaysChange = (event) => {
     const newTotalPlays = parseInt(event.target.value, 10);
@@ -137,6 +151,10 @@ const updateYardsPerTarget = (index, value) => {
     setTotalPlays(newTotalPlays);
     // setPassTDs(Math.round(newTotalTDs * passTDPercentage/100));
     // setRushTDs(Math.round(newTotalTDs * rushTDPercentage/100));
+      // Update the team data
+    team.Rush_att = (rushPerc / 100 * totalPlays).toFixed(1);
+    team.Pass_att = (passPerc / 100 * totalPlays).toFixed(1);
+    updateTeamData(team);
   };
 
 
@@ -220,10 +238,10 @@ const updateYardsPerTarget = (index, value) => {
             </Grid>
             <Grid item xs={6}>
               <Typography variant="body1">
-                Pass Plays: {(rushPerc / 100 * totalPlays).toFixed(1)}
+                Pass Plays: {(passPerc / 100 * totalPlays).toFixed(1)}
               </Typography>
               <Typography variant="body1">
-                Rush Plays: {(passPerc / 100 * totalPlays).toFixed(1)}
+                Rush Plays: {(rushPerc / 100 * totalPlays).toFixed(1)}
               </Typography>
               <Button variant="contained" onClick={handleOpen} sx={{ mt: 2 }}>
                 View Players
