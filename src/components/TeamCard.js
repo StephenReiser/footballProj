@@ -12,12 +12,14 @@ import TeamModal from "./TeamModal";
 
 
 const TeamCard = ({ team, handleUpdate, setPlayers, players }) => {
-    // console.log(team)
+
+    console.log(team,'-------TotalPlays', team.Pass_att+team.Rush_att)
     const filteredPlayers = players.filter((player) => player.Full_Team === team.Tm);
     const [open, setOpen] = useState(false);
     const [passTDs, setPassTDs] = useState(team.Pass_TD);
     const [rushTDs, setRushTDs] = useState(team.TD);
-    const [totalPlays, setTotalPlays] = useState(parseFloat(team.Pass_att + team.Rush_att).toFixed(1));
+    const [totalPlays, setTotalPlays] = useState(parseFloat(Number(team.Pass_att) + Number(team.Rush_att)).toFixed(1));
+
     const [rushPerc, setRushPerc] = useState(
         parseFloat((team.Rush_att / totalPlays) * 100).toFixed(1));
     const [passPerc, setPassPerc] = useState(

@@ -25,8 +25,10 @@ function App() {
   const handleLoad = () => {
     const savedTeams = JSON.parse(localStorage.getItem('teams'));
     const savedPlayers = JSON.parse(localStorage.getItem('players'));
+    console.log(savedTeams)
     if (savedTeams) setTeams(savedTeams);
     if (savedPlayers) setPlayers(savedPlayers);
+    // console.log(savedTeams)
     setUniqueKey(Date.now());
   };
   
