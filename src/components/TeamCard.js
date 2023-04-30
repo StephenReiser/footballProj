@@ -13,7 +13,7 @@ import TeamModal from "./TeamModal";
 
 const TeamCard = ({ team, handleUpdate, setPlayers, players }) => {
 
-    console.log(team,'-------TotalPlays', team.Pass_att+team.Rush_att)
+    // console.log(team,'-------TotalPlays', team.Pass_att+team.Rush_att)
     const filteredPlayers = players.filter((player) => player.Full_Team === team.Tm);
     const [open, setOpen] = useState(false);
     const [passTDs, setPassTDs] = useState(team.Pass_TD);
@@ -57,7 +57,7 @@ const TeamCard = ({ team, handleUpdate, setPlayers, players }) => {
       }
       return player;
     });
-    console.log(updatedPlayers)
+    // console.log(updatedPlayers)
     // Update the players state
     setPlayers(updatedPlayers);
   };
@@ -81,7 +81,7 @@ const TeamCard = ({ team, handleUpdate, setPlayers, players }) => {
       }
       return player;
     });
-    console.log(updatedPlayers)
+    // console.log(updatedPlayers)
     // Update the players state
     setPlayers(updatedPlayers);
   };
@@ -105,7 +105,7 @@ const TeamCard = ({ team, handleUpdate, setPlayers, players }) => {
       }
       return player;
     });
-    console.log(updatedPlayers)
+    // console.log(updatedPlayers)
     // Update the players state
     setPlayers(updatedPlayers);
   };
@@ -128,7 +128,7 @@ const TeamCard = ({ team, handleUpdate, setPlayers, players }) => {
       }
       return player;
     });
-    console.log(updatedPlayers)
+    // console.log(updatedPlayers)
     // Update the players state
     setPlayers(updatedPlayers);
   };
@@ -150,7 +150,7 @@ const TeamCard = ({ team, handleUpdate, setPlayers, players }) => {
       }
       return player;
     });
-    console.log(updatedPlayers)
+    // console.log(updatedPlayers)
     // Update the players state
     setPlayers(updatedPlayers);
   };
@@ -173,7 +173,7 @@ const TeamCard = ({ team, handleUpdate, setPlayers, players }) => {
       }
       return player;
     });
-    console.log(updatedPlayers)
+    // console.log(updatedPlayers)
     // Update the players state
     setPlayers(updatedPlayers);
   };
@@ -197,7 +197,7 @@ const TeamCard = ({ team, handleUpdate, setPlayers, players }) => {
       }
       return player;
     });
-    console.log(updatedPlayers)
+    // console.log(updatedPlayers)
     // Update the players state
     setPlayers(updatedPlayers);
   };
@@ -254,7 +254,7 @@ const updateYardsPerTarget = (index, value) => {
 
     const handleClose = () => {
         setOpen(false);
-        console.log(team)
+        // console.log(team)
         // handleModalClose(team)
     };
     
