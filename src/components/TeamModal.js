@@ -26,7 +26,7 @@ import {
 }));
 
   
-const TeamModal = ({ open, handleClose, team, rushTdShares, updateRushTdShare, recTdShares, targetShares, rushShares, yardsPerRushAttempt, catchRates, yardsPerTarget, updateRecTdShare, updateTargetShare, updateRushShare, updateYardsPerRushAttempt, updateCatchRate, updateYardsPerTarget}) => {
+const TeamModal = ({ open, players, handleClose, team, rushTdShares, updateRushTdShare, recTdShares, targetShares, rushShares, yardsPerRushAttempt, catchRates, yardsPerTarget, updateRecTdShare, updateTargetShare, updateRushShare, updateYardsPerRushAttempt, updateCatchRate, updateYardsPerTarget}) => {
 
 
     const teamRushTD = team.TD;
@@ -43,7 +43,7 @@ const TeamModal = ({ open, handleClose, team, rushTdShares, updateRushTdShare, r
         const totalRecTdShare = recTdShares.reduce((sum, share) => sum + share, 0);
         const totalTargetShare = targetShares.reduce((sum, share) => sum + share, 0);
         const totalRushShare = rushShares.reduce((sum, share) => sum + share, 0);
-        const totalRecYds = team.players.reduce((sum, _, index) => sum + (yardsPerTarget[index] * targetShares[index] * passPlays), 0);
+        const totalRecYds = players.reduce((sum, _, index) => sum + (yardsPerTarget[index] * targetShares[index] * passPlays), 0);
           
     return (
         <Dialog open={open} onClose={handleClose} fullWidth maxWidth="lg">
@@ -103,7 +103,7 @@ const TeamModal = ({ open, handleClose, team, rushTdShares, updateRushTdShare, r
               </TableHead>
           <TableBody>
             
-            {team.players.map((player, index) => {
+            {players.map((player, index) => {
               // Calculate player statistics
               const rushTD = rushTdShares[index] * teamRushTD;
               const recTD = recTdShares[index] * teamPassTD;
@@ -117,8 +117,8 @@ const TeamModal = ({ open, handleClose, team, rushTdShares, updateRushTdShare, r
             //   const recYds = receptions * player.yardsPerReception;
             //   const rushYds = rushAtt * player.yardsPerRush;
             const qbIndexWithHighestRushShare = rushShares.reduce(
-                (maxIndex, share, index, array) => (team.players[index].Pos === 'QB' && share > array[maxIndex] ? index : maxIndex),
-                team.players.findIndex(player => player.Pos === 'QB')
+                (maxIndex, share, index, array) => (players[index].Pos === 'QB' && share > array[maxIndex] ? index : maxIndex),
+                players.findIndex(player => player.Pos === 'QB')
               );
           
               const isStarterQB = index === qbIndexWithHighestRushShare;

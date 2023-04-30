@@ -1,0 +1,130 @@
+[
+    {
+      "Team": "Arizona Cardinals",
+      "Starter": "Kyler Murray"
+    },
+    {
+      "Team": "Atlanta Falcons",
+      "Starter": "Desmond Ridder"
+    },
+    {
+      "Team": "Baltimore Ravens",
+      "Starter": "Lamar Jackson"
+    },
+    {
+      "Team": "Buffalo Bills",
+      "Starter": "Josh Allen"
+    },
+    {
+      "Team": "Carolina Panthers",
+      "Starter": "Bryce Young"
+    },
+    {
+      "Team": "Chicago Bears",
+      "Starter": "Justin Fields"
+    },
+    {
+      "Team": "Cincinnati Bengals",
+      "Starter": "Joe Burrow"
+    },
+    {
+      "Team": "Cleveland Browns",
+      "Starter": "Deshaun Watson"
+    },
+    {
+      "Team": "Dallas Cowboys",
+      "Starter": "Dak Prescott"
+    },
+    {
+      "Team": "Denver Broncos",
+      "Starter": "Russell Wilson"
+    },
+    {
+      "Team": "Detroit Lions",
+      "Starter": "Jared Goff"
+    },
+    {
+      "Team": "Green Bay Packers",
+      "Starter": "Jordan Love"
+    },
+    {
+      "Team": "Houston Texans",
+      "Starter": "CJ Stroud"
+    },
+    {
+      "Team": "Indianapolis Colts",
+      "Starter": "Anthony Richardson"
+    },
+    {
+      "Team": "Jacksonville Jaguars",
+      "Starter": "Trevor Lawrence"
+    },
+    {
+      "Team": "Kansas City Chiefs",
+      "Starter": "Patrick Mahomes"
+    },
+    {
+      "Team": "Los Angeles Chargers",
+      "Starter": "Justin Herbert"
+    },
+    {
+      "Team": "Los Angeles Rams",
+      "Starter": "Matthew Stafford"
+    },
+    {
+      "Team": "Las Vegas Raiders",
+      "Starter": "Jimmy Garappolo"
+    },
+    {
+      "Team": "Miami Dolphins",
+      "Starter": "Tua Tagovailoa"
+    },
+    {
+      "Team": "Minnesota Vikings",
+      "Starter": "Kirk Cousins"
+    },
+    {
+      "Team": "New England Patriots",
+      "Starter": "Mac Jones"
+    },
+    {
+      "Team": "New Orleans Saints",
+      "Starter": "Derek Carr"
+    },
+    {
+      "Team": "New York Giants",
+      "Starter": "Daniel Jones"
+    },
+    {
+      "Team": "New York Jets",
+      "Starter": "Aaron Rodgers"
+    },
+    {
+      "Team": "Philadelphia Eagles",
+      "Starter": "Jalen Hurts"
+    },
+    {
+      "Team": "Pittsburgh Steelers",
+      "Starter": "Kenny Pickett"
+    },
+    {
+      "Team": "Seattle Seahawks",
+      "Starter": "Geno Smith"
+    },
+    {
+      "Team": "San Francisco 49ers",
+      "Starter": "Trey Lance"
+    },
+    {
+      "Team": "Tampa Bay Buccaneers",
+      "Starter": "Baker Mayfield"
+    },
+    {
+      "Team": "Tennessee Titans",
+      "Starter": "Ryan Tannehill"
+    },
+    {
+      "Team": "Washington Commanders",
+      "Starter": "Sam Howell"
+    }
+  ]

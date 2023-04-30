@@ -11,8 +11,9 @@ import { useState } from "react";
 import TeamModal from "./TeamModal";
 
 
-const TeamCard = ({ team, updateTeamData }) => {
-    console.log(team)
+const TeamCard = ({ team, handleUpdate, setPlayers, players }) => {
+    // console.log(team)
+    const filteredPlayers = players.filter((player) => player.Full_Team === team.Tm);
     const [open, setOpen] = useState(false);
     const [passTDs, setPassTDs] = useState(team.Pass_TD);
     const [rushTDs, setRushTDs] = useState(team.TD);
@@ -31,21 +32,173 @@ const TeamCard = ({ team, updateTeamData }) => {
   const [totalTDs, setTotalTDs] = useState(parseFloat(team.Pass_TD + team.TD).toFixed(1));
 
   // State previously in TeamModal:
-  const [rushTdShares, setRushTdShares] = useState(
-    team.players.map((player) => player.rushTdShare)
+
+  // ------------------Set Player level details ----------------------------
+  // ------------------Set Player level details ----------------------------
+  // ------------------Set Player level details ----------------------------
+  const [rushTdShares, _setRushTdShares] = useState(
+    filteredPlayers.map((player) => player.rushTdShare)
   );
-  const [recTdShares, setRecTdShares] = useState(
-    team.players.map((player) => player.recTdShare)
+  
+  const setRushTdShares = (newRushTdShares) => {
+    // Update the rushTdShares state
+    _setRushTdShares(newRushTdShares);
+  
+    // Update the corresponding players with new rushTdShare values
+    const updatedPlayers = players.map((player, index) => {
+      const updatedRushTdShare = newRushTdShares[index];
+      if (updatedRushTdShare !== undefined) {
+        return {
+          ...player,
+          rushTdShare: updatedRushTdShare,
+        };
+      }
+      return player;
+    });
+    console.log(updatedPlayers)
+    // Update the players state
+    setPlayers(updatedPlayers);
+  };
+  
+  const [recTdShares, _setRecTdShares] = useState(
+    filteredPlayers.map((player) => player.recTdShare)
   );
-  const [targetShares, setTargetShares] = useState(
-    team.players.map((player) => player.targetShare)
+
+  const setRecTdShares = (newRecTdShares) => {
+    // Update the rushTdShares state
+    _setRecTdShares(newRecTdShares);
+  
+    // Update the corresponding players with new rushTdShare values
+    const updatedPlayers = players.map((player, index) => {
+      const updatedRecTdShare = newRecTdShares[index];
+      if (updatedRecTdShare !== undefined) {
+        return {
+          ...player,
+          recTdShare: updatedRecTdShare,
+        };
+      }
+      return player;
+    });
+    console.log(updatedPlayers)
+    // Update the players state
+    setPlayers(updatedPlayers);
+  };
+
+  const [targetShares, _setTargetShares] = useState(
+    filteredPlayers.map((player) => player.targetShare)
   );
-  const [rushShares, setRushShares] = useState(
-    team.players.map((player) => player.rushShare)
+
+  const setTargetShares = (newTargetShares) => {
+    // Update the rushTdShares state
+    _setTargetShares(newTargetShares);
+  
+    // Update the corresponding players with new rushTdShare values
+    const updatedPlayers = players.map((player, index) => {
+      const updatedTargetShare = newTargetShares[index];
+      if (updatedTargetShare !== undefined) {
+        return {
+          ...player,
+          targetShare: updatedTargetShare,
+        };
+      }
+      return player;
+    });
+    console.log(updatedPlayers)
+    // Update the players state
+    setPlayers(updatedPlayers);
+  };
+
+  const [rushShares, _setRushShares] = useState(
+    filteredPlayers.map((player) => player.rushShare)
   );
-  const [yardsPerRushAttempt, setYardsPerRushAttempt] = useState(team.players.map(player => player["Y/A"]));
-  const [catchRates, setCatchRates] = useState(team.players.map(player => player["Ctch%"]));
-  const [yardsPerTarget, setYardsPerTarget] = useState(team.players.map(player => player["Y/Tgt"]));
+  const setRushShares = (newRushShares) => {
+    // Update the rushTdShares state
+    _setRushShares(newRushShares);
+  
+    // Update the corresponding players with new rushTdShare values
+    const updatedPlayers = players.map((player, index) => {
+      const updatedRushShare = newRushShares[index];
+      if (updatedRushShare !== undefined) {
+        return {
+          ...player,
+          rushShare: updatedRushShare,
+        };
+      }
+      return player;
+    });
+    console.log(updatedPlayers)
+    // Update the players state
+    setPlayers(updatedPlayers);
+  };
+
+  const [yardsPerRushAttempt, _setYardsPerRushAttempt] = useState(filteredPlayers.map(player => player["Y/A"]));
+  
+  const setYardsPerRushAttempt = (ypa) => {
+    // Update the rushTdShares state
+    _setYardsPerRushAttempt(ypa);
+  
+    // Update the corresponding players with new rushTdShare values
+    const updatedPlayers = players.map((player, index) => {
+      const updatedYPA = ypa[index];
+      if (updatedYPA !== undefined) {
+        return {
+          ...player,
+          'Y/A': updatedYPA,
+        };
+      }
+      return player;
+    });
+    console.log(updatedPlayers)
+    // Update the players state
+    setPlayers(updatedPlayers);
+  };
+
+  const [catchRates, _setCatchRates] = useState(filteredPlayers.map(player => player["Ctch%"]));
+
+
+  const setCatchRates = (catchRate) => {
+    // Update the rushTdShares state
+    _setCatchRates(catchRate);
+  
+    // Update the corresponding players with new rushTdShare values
+    const updatedPlayers = players.map((player, index) => {
+      const updatedRate = catchRate[index];
+      if (updatedRate !== undefined) {
+        return {
+          ...player,
+          'Ctch%': updatedRate,
+        };
+      }
+      return player;
+    });
+    console.log(updatedPlayers)
+    // Update the players state
+    setPlayers(updatedPlayers);
+  };
+
+
+  const [yardsPerTarget, _setYardsPerTarget] = useState(filteredPlayers.map(player => player["Y/Tgt"]));
+
+
+  const setYardsPerTarget = (ypt) => {
+    // Update the rushTdShares state
+    _setYardsPerTarget(ypt);
+  
+    // Update the corresponding players with new rushTdShare values
+    const updatedPlayers = players.map((player, index) => {
+      const updatedYPT = ypt[index];
+      if (updatedYPT !== undefined) {
+        return {
+          ...player,
+          'Y/Tgt': updatedYPT,
+        };
+      }
+      return player;
+    });
+    console.log(updatedPlayers)
+    // Update the players state
+    setPlayers(updatedPlayers);
+  };
 
   // Update Functions Previously in Modal:
   const updateRushTdShare = (index, value) => {
@@ -88,6 +241,10 @@ const updateYardsPerTarget = (index, value) => {
 };
 
 
+// ------------------ END Set Player level details ----------------------------
+// ------------------END Set Player level details ----------------------------
+// ------------------END Set Player level details ----------------------------
+
 //   Functions:
     const handleOpen = () => {
         setOpen(true);
@@ -95,70 +252,120 @@ const updateYardsPerTarget = (index, value) => {
 
     const handleClose = () => {
         setOpen(false);
+        console.log(team)
+        // handleModalClose(team)
     };
     
-  const handlePercentageChange = (event) => {
-    const target = event.target;
-    const value = parseFloat(target.value);
-  
-    if (target.name === "passTDPercentage") {
-      setPassTDPercentage(value);
-      setRushTDPercentage(100-value);
-      setPassTDs(totalTDs * value/100);
-      setRushTDs(totalTDs * (100 - value)/100);
-    } else if (target.name === "rushTDPercentage") {
-      setRushTDPercentage(value);
-      setPassTDPercentage(100-value);
-      setRushTDs(totalTDs * value/100);
-      setPassTDs(totalTDs * (100 - value)/100);
-    }
-      // Update the team data
-    team.Pass_TD = passTDs;
-    team.TD = rushTDs;
-    updateTeamData(team);
-  };
-  
-    const handlePlayPercentageChange = (event) => {
-        const target = event.target;
-        const value = parseFloat(target.value);
-
-        if (target.name === "rushPerc") {
-        setRushPerc(value);
-        setPassPerc(100 - value);
-        } else if (target.name === "passPerc") {
-        setPassPerc(value);
-        setRushPerc(100 - value);
-        }
-        // Update the team data
-        team.Rush_att = (rushPerc / 100 * totalPlays).toFixed(1);
-        team.Pass_att = (passPerc / 100 * totalPlays).toFixed(1);
-        updateTeamData(team);
-    };
-  const handleTotalTDsChange = (event) => {
-    const newTotalTDs = parseInt(event.target.value, 10);
-    console.log(newTotalTDs)
-    setTotalTDs(newTotalTDs);
-    setPassTDs(Math.round(newTotalTDs * passTDPercentage/100));
-    setRushTDs(Math.round(newTotalTDs * rushTDPercentage/100));
-    // Update the team data
-    team.Pass_TD = passTDs;
-    team.TD = rushTDs;
-    updateTeamData(team);
-  };
-  const handleTotalPlaysChange = (event) => {
-    const newTotalPlays = parseInt(event.target.value, 10);
-    
-    setTotalPlays(newTotalPlays);
-    // setPassTDs(Math.round(newTotalTDs * passTDPercentage/100));
-    // setRushTDs(Math.round(newTotalTDs * rushTDPercentage/100));
-      // Update the team data
-    team.Rush_att = (rushPerc / 100 * totalPlays).toFixed(1);
-    team.Pass_att = (passPerc / 100 * totalPlays).toFixed(1);
-    updateTeamData(team);
-  };
 
 
+// Here is where we should figure out how to setTeams 
+// Here is where we should figure out how to setTeams
+// Here is where we should figure out how to setTeams
+const handlePercentageChange = (event) => {
+  const target = event.target;
+  const value = parseFloat(target.value);
+
+  let newPassTDs;
+  let newRushTDs;
+
+  if (target.name === "passTDPercentage") {
+    setPassTDPercentage(value);
+    setRushTDPercentage(100 - value);
+    newPassTDs = totalTDs * value / 100;
+    newRushTDs = totalTDs * (100 - value) / 100;
+  } else if (target.name === "rushTDPercentage") {
+    setRushTDPercentage(value);
+    setPassTDPercentage(100 - value);
+    newRushTDs = totalTDs * value / 100;
+    newPassTDs = totalTDs * (100 - value) / 100;
+  }
+
+  setPassTDs(newPassTDs);
+  setRushTDs(newRushTDs);
+
+  // Create a new team object with the updated properties
+  const updatedTeam = {
+    ...team,
+    Pass_TD: newPassTDs,
+    TD: newRushTDs,
+  };
+
+  handleUpdate(updatedTeam);
+};
+
   
+const handlePlayPercentageChange = (event) => {
+  const target = event.target;
+  const value = parseFloat(target.value);
+
+  let newRushPerc;
+  let newPassPerc;
+
+  if (target.name === "rushPerc") {
+    newRushPerc = value;
+    newPassPerc = 100 - value;
+  } else if (target.name === "passPerc") {
+    newPassPerc = value;
+    newRushPerc = 100 - value;
+  }
+
+  setRushPerc(newRushPerc);
+  setPassPerc(newPassPerc);
+
+  // Calculate the new Rush_att and Pass_att values
+  const newRushAtt = (newRushPerc / 100 * totalPlays).toFixed(1);
+  const newPassAtt = (newPassPerc / 100 * totalPlays).toFixed(1);
+
+  // Create a new team object with the updated properties
+  const updatedTeam = {
+    ...team,
+    Rush_att: newRushAtt,
+    Pass_att: newPassAtt,
+  };
+
+  handleUpdate(updatedTeam);
+};
+const handleTotalTDsChange = (event) => {
+  const newTotalTDs = parseInt(event.target.value, 10);
+
+  setTotalTDs(newTotalTDs);
+  const newPassTDs = Math.round(newTotalTDs * passTDPercentage / 100);
+  const newRushTDs = Math.round(newTotalTDs * rushTDPercentage / 100);
+  setPassTDs(newPassTDs);
+  setRushTDs(newRushTDs);
+
+  // Create a new team object with the updated properties
+  const updatedTeam = {
+    ...team,
+    Pass_TD: newPassTDs,
+    TD: newRushTDs,
+  };
+
+  handleUpdate(updatedTeam);
+};
+
+const handleTotalPlaysChange = (event) => {
+  const newTotalPlays = parseInt(event.target.value, 10);
+
+  setTotalPlays(newTotalPlays);
+
+  // Calculate the new Rush_att and Pass_att values
+  const newRushAtt = (rushPerc / 100 * newTotalPlays).toFixed(1);
+  const newPassAtt = (passPerc / 100 * newTotalPlays).toFixed(1);
+
+  // Create a new team object with the updated properties
+  const updatedTeam = {
+    ...team,
+    Rush_att: newRushAtt,
+    Pass_att: newPassAtt,
+  };
+
+  handleUpdate(updatedTeam);
+};
+
+
+// End Team Setting
+
 
   return (
     <Grid item xs={12} sm={6} md={4}>
@@ -250,7 +457,7 @@ const updateYardsPerTarget = (index, value) => {
                 <TeamModal open={open} handleClose={handleClose} team={team} rushTdShares={rushTdShares} setRushTdShares={setRushTdShares} updateRushTdShare={updateRushTdShare}
                 recTdShares={recTdShares} targetShares={targetShares} rushShares={rushShares} yardsPerRushAttempt={yardsPerRushAttempt} catchRates={catchRates} yardsPerTarget={yardsPerTarget}
                 updateRecTdShare={updateRecTdShare} updateTargetShare={updateTargetShare} updateRushShare={updateRushShare} updateYardsPerRushAttempt={updateYardsPerRushAttempt}
-                updateCatchRate={updateCatchRate} updateYardsPerTarget={updateYardsPerTarget}/>
+                updateCatchRate={updateCatchRate} updateYardsPerTarget={updateYardsPerTarget} players={filteredPlayers} />
             </Grid>
           </Grid>
         </Box>
