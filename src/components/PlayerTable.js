@@ -38,17 +38,24 @@ const PlayerTable = ({ playerData, onClose }) => {
 
   
   const sortedPlayerData = () => {
-    return playerData.slice().sort((a, b) => b.FantasyPoints - a.FantasyPoints);
+    const sorted = playerData.slice().sort((a, b) => b.FantasyPoints - a.FantasyPoints);
+    return sorted.map((player, index) => ({
+      ...player,
+      Rank: index + 1,
+    }));
   };
   
   
   const filteredPlayerData = () => {
     if (positionFilter === 'all') {
       return sortedPlayerData();
+    } else if (positionFilter === 'Flex') {
+      return sortedPlayerData().filter(player => player.Position !== 'QB');
     } else {
       return sortedPlayerData().filter(player => player.Position === positionFilter);
     }
   };
+  
   
     
 
@@ -68,11 +75,13 @@ const PlayerTable = ({ playerData, onClose }) => {
           <MenuItem value="RB">RB</MenuItem>
           <MenuItem value="WR">WR</MenuItem>
           <MenuItem value="TE">TE</MenuItem>
+          <MenuItem value="Flex">Flex</MenuItem>
         </Select>
 
         <StyledTable stickyHeader aria-label="player data table">
           <StyledTableHead>
             <TableRow>
+            <TableCell>Rank</TableCell>
               <TableCell>Player</TableCell>
               <TableCell>Position</TableCell>
               <TableCell>Team</TableCell>
@@ -91,6 +100,7 @@ const PlayerTable = ({ playerData, onClose }) => {
           <TableBody>
             {filteredPlayerData().map((player, index) => (
               <TableRow key={index}>
+                <TableCell>{player.Rank}</TableCell>
                 <TableCell>{player.Player}</TableCell>
                 <TableCell>{player.Position}</TableCell>
                 <TableCell>{player.Full_Team}</TableCell>
