@@ -33,6 +33,21 @@ const TeamCard = ({ team, handleUpdate, setPlayers, players }) => {
   );
   const [totalTDs, setTotalTDs] = useState(parseFloat(team.Pass_TD + team.TD).toFixed(1));
 
+
+  const updatePlayerData = (updatedPlayer) => {
+    // Find the index of the player to be updated
+    const playerIndex = players.findIndex(
+      (player) => player.Player === updatedPlayer.Player
+    );
+
+    // Update the player properties with the updated player object
+    const updatedPlayers = players.map((player, index) =>
+      index === playerIndex ? updatedPlayer : player
+    );
+
+    // Set the updated players list
+    setPlayers(updatedPlayers);
+  };
   // State previously in TeamModal:
 
   // ------------------Set Player level details ----------------------------
@@ -204,43 +219,126 @@ const TeamCard = ({ team, handleUpdate, setPlayers, players }) => {
 
   // Update Functions Previously in Modal:
   const updateRushTdShare = (index, value) => {
+    const filteredPlayer = filteredPlayers[index];
+    const playerIndex = players.findIndex(
+      (player) => player.Player === filteredPlayer.Player
+    );
+  
     const newRushTdShares = [...rushTdShares];
     newRushTdShares[index] = parseFloat(value) / 100 || 0;
     setRushTdShares(newRushTdShares);
-};
-
-const updateRecTdShare = (index, value) => {
-  const newRecTdShares = [...recTdShares];
-  newRecTdShares[index] = parseFloat(value) / 100 || 0;
-  setRecTdShares(newRecTdShares);
-};
-const updateTargetShare = (index, value) => {
-  const newTargetShares = [...targetShares];
-  newTargetShares[index] = parseFloat(value) / 100 || 0;
-  setTargetShares(newTargetShares);
-};
-const updateRushShare = (index, value) => {
-  const newRushShares = [...rushShares];
-  newRushShares[index] = parseFloat(value) / 100 || 0;
-  setRushShares(newRushShares);
-};
-const updateYardsPerRushAttempt = (index, value) => {
-  const newYardsPerRushAttempt = [...yardsPerRushAttempt];
-  newYardsPerRushAttempt[index] = parseFloat(value);
-  setYardsPerRushAttempt(newYardsPerRushAttempt);
-};
-
-const updateCatchRate = (index, value) => {
-  const newCatchRates = [...catchRates];
-  newCatchRates[index] = parseFloat(value) / 100 || 0;
-  setCatchRates(newCatchRates);
-};
-
-const updateYardsPerTarget = (index, value) => {
-  const newYardsPerTarget = [...yardsPerTarget];
-  newYardsPerTarget[index] = parseFloat(value);
-  setYardsPerTarget(newYardsPerTarget);
-};
+  
+    // Update the player data with the new rushTdShare value
+    const updatedPlayer = {
+      ...players[playerIndex],
+      rushTdShare: newRushTdShares[index],
+    };
+    updatePlayerData(updatedPlayer);
+  };
+  
+  const updateRecTdShare = (index, value) => {
+    const filteredPlayer = filteredPlayers[index];
+    const playerIndex = players.findIndex(
+      (player) => player.Player === filteredPlayer.Player
+    );
+  
+    const newRecTdShares = [...recTdShares];
+    newRecTdShares[index] = parseFloat(value) / 100 || 0;
+    setRecTdShares(newRecTdShares);
+  
+    const updatedPlayer = {
+      ...players[playerIndex],
+      recTdShare: newRecTdShares[index],
+    };
+    updatePlayerData(updatedPlayer);
+  };
+  
+  const updateTargetShare = (index, value) => {
+    const filteredPlayer = filteredPlayers[index];
+    const playerIndex = players.findIndex(
+      (player) => player.Player === filteredPlayer.Player
+    );
+  
+    const newTargetShares = [...targetShares];
+    newTargetShares[index] = parseFloat(value) / 100 || 0;
+    setTargetShares(newTargetShares);
+  
+    const updatedPlayer = {
+      ...players[playerIndex],
+      targetShare: newTargetShares[index],
+    };
+    updatePlayerData(updatedPlayer);
+  };
+  
+  const updateRushShare = (index, value) => {
+    const filteredPlayer = filteredPlayers[index];
+    const playerIndex = players.findIndex(
+      (player) => player.Player === filteredPlayer.Player
+    );
+  
+    const newRushShares = [...rushShares];
+    newRushShares[index] = parseFloat(value) / 100 || 0;
+    setRushShares(newRushShares);
+  
+    const updatedPlayer = {
+      ...players[playerIndex],
+      rushShare: newRushShares[index],
+    };
+    updatePlayerData(updatedPlayer);
+  };
+  
+  const updateYardsPerRushAttempt = (index, value) => {
+    const filteredPlayer = filteredPlayers[index];
+    const playerIndex = players.findIndex(
+      (player) => player.Player === filteredPlayer.Player
+    );
+  
+    const newYardsPerRushAttempt = [...yardsPerRushAttempt];
+    newYardsPerRushAttempt[index] = parseFloat(value);
+    setYardsPerRushAttempt(newYardsPerRushAttempt);
+  
+    const updatedPlayer = {
+      ...players[playerIndex],
+      'Y/A': newYardsPerRushAttempt[index],
+    };
+    updatePlayerData(updatedPlayer);
+  };
+  
+  const updateCatchRate = (index, value) => {
+    const filteredPlayer = filteredPlayers[index];
+    const playerIndex = players.findIndex(
+      (player) => player.Player === filteredPlayer.Player
+    );
+  
+    const newCatchRates = [...catchRates];
+    newCatchRates[index] = parseFloat(value) / 100 || 0;
+    setCatchRates(newCatchRates);
+  
+    const updatedPlayer = {
+      ...players[playerIndex],
+      'Ctch%': newCatchRates[index],
+    };
+    updatePlayerData(updatedPlayer);
+  };
+  
+  const updateYardsPerTarget = (index, value) => {
+    const filteredPlayer = filteredPlayers[index];
+    const playerIndex = players.findIndex(
+      (player) => player.Player === filteredPlayer.Player
+    );
+  
+    const newYardsPerTarget = [...yardsPerTarget];
+    newYardsPerTarget[index] = parseFloat(value);
+    setYardsPerTarget(newYardsPerTarget);
+  
+    const updatedPlayer = {
+      ...players[playerIndex],
+      'Y/Tgt': newYardsPerTarget[index],
+    };
+    updatePlayerData(updatedPlayer);
+  };
+  
+  
 
 
 // ------------------ END Set Player level details ----------------------------
@@ -459,7 +557,7 @@ const handleTotalPlaysChange = (event) => {
                 <TeamModal open={open} handleClose={handleClose} team={team} rushTdShares={rushTdShares} setRushTdShares={setRushTdShares} updateRushTdShare={updateRushTdShare}
                 recTdShares={recTdShares} targetShares={targetShares} rushShares={rushShares} yardsPerRushAttempt={yardsPerRushAttempt} catchRates={catchRates} yardsPerTarget={yardsPerTarget}
                 updateRecTdShare={updateRecTdShare} updateTargetShare={updateTargetShare} updateRushShare={updateRushShare} updateYardsPerRushAttempt={updateYardsPerRushAttempt}
-                updateCatchRate={updateCatchRate} updateYardsPerTarget={updateYardsPerTarget} players={filteredPlayers} />
+                updateCatchRate={updateCatchRate} updateYardsPerTarget={updateYardsPerTarget} players={players} />
             </Grid>
           </Grid>
         </Box>

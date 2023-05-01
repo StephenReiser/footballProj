@@ -78,6 +78,7 @@ const handleImportCSV = (event, isTeam) => {
   const handleSave = () => {
     localStorage.setItem('teams', JSON.stringify(teams));
     localStorage.setItem('players', JSON.stringify(players));
+    console.log(players)
   };
   const handleLoad = () => {
     const savedTeams = JSON.parse(localStorage.getItem('teams'));
@@ -107,6 +108,7 @@ const handleImportCSV = (event, isTeam) => {
   
     // Update the state with the new array
     setTeams(updatedTeams);
+    
   };
   
   const handleShowPlayerData = () => {

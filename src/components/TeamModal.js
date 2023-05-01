@@ -28,7 +28,7 @@ import {
   
 const TeamModal = ({ open, players, handleClose, team, rushTdShares, updateRushTdShare, recTdShares, targetShares, rushShares, yardsPerRushAttempt, catchRates, yardsPerTarget, updateRecTdShare, updateTargetShare, updateRushShare, updateYardsPerRushAttempt, updateCatchRate, updateYardsPerTarget}) => {
 
-
+    const filteredPlayers = players.filter((player) => player.Full_Team === team.Tm);
     const teamRushTD = team.TD;
     const teamPassTD = team.Pass_TD;
     const rushPlays = team.Rush_att;
@@ -43,7 +43,7 @@ const TeamModal = ({ open, players, handleClose, team, rushTdShares, updateRushT
         const totalRecTdShare = recTdShares.reduce((sum, share) => sum + share, 0);
         const totalTargetShare = targetShares.reduce((sum, share) => sum + share, 0);
         const totalRushShare = rushShares.reduce((sum, share) => sum + share, 0);
-        const totalRecYds = players.reduce((sum, _, index) => sum + (yardsPerTarget[index] * targetShares[index] * passPlays), 0);
+        const totalRecYds = filteredPlayers.reduce((sum, _, index) => sum + (yardsPerTarget[index] * targetShares[index] * passPlays), 0);
           
     return (
         <Dialog open={open} onClose={handleClose} fullWidth maxWidth="lg">
@@ -103,7 +103,7 @@ const TeamModal = ({ open, players, handleClose, team, rushTdShares, updateRushT
               </TableHead>
           <TableBody>
             
-            {players.map((player, index) => {
+            {filteredPlayers.map((player, index) => {
               // Calculate player statistics
               const rushTD = rushTdShares[index] * teamRushTD;
               const recTD = recTdShares[index] * teamPassTD;
@@ -117,7 +117,7 @@ const TeamModal = ({ open, players, handleClose, team, rushTdShares, updateRushT
             //   const recYds = receptions * player.yardsPerReception;
             //   const rushYds = rushAtt * player.yardsPerRush;
             const qbIndexWithHighestRushShare = rushShares.reduce(
-                (maxIndex, share, index, array) => (players[index].Pos === 'QB' && share > array[maxIndex] ? index : maxIndex),
+                (maxIndex, share, index, array) => (filteredPlayers[index].Pos === 'QB' && share > array[maxIndex] ? index : maxIndex),
                 players.findIndex(player => player.Pos === 'QB')
               );
           
