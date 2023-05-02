@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useState } from "react";
-import { Container, Grid, Typography, Box, Button, Dialog, DialogTitle, DialogContent} from "@mui/material";
+import { Container, Grid, Typography, Box, Button, Dialog, DialogTitle, DialogContent, DialogActions, DialogContentText, Snackbar, Alert } from "@mui/material";
 import data from './data/data.json'
 import starters from './data/starters.json'
 import TeamCard from "./components/TeamCard";
@@ -24,6 +24,9 @@ function App() {
   const [teams, setTeams] = useState(data);
   const [playerSummary, setPlayerSummary] = useState([])
   const [uniqueKey, setUniqueKey] = useState(Date.now());
+  const [openDialog, setOpenDialog] = useState(false);
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
 
   const allPlayers = data.reduce((acc, team) => {
     return [...acc, ...team.players];
@@ -90,7 +93,33 @@ const handleImportCSV = (event, isTeam) => {
     setUniqueKey(Date.now());
   };
   
-  
+  // New functions for handling Dialog and Snackbar
+  const handleSaveClick = () => {
+    setOpenDialog(true);
+  };
+
+const handleDialogClose = (shouldSave) => {
+    setOpenDialog(false);
+
+    if (shouldSave) {
+      handleSave();
+      setSnackbarMessage('Saved');
+    } else {
+      setSnackbarMessage('Data not saved');
+    }
+    setOpenSnackbar(true);
+  };
+
+  const handleLoadClick = () => {
+    handleLoad();
+    setSnackbarMessage('Projections Loaded');
+    setOpenSnackbar(true);
+  };
+
+  const handleSnackbarClose = () => {
+    setOpenSnackbar(false);
+  };
+
   // End Loading and Saving
   const handleClosePlayerTable = () => {
     setIsPlayerTableOpen(false);
@@ -173,12 +202,12 @@ const handleImportCSV = (event, isTeam) => {
 
           </Typography>
           <ButtonContainer>
-            <StyledButton variant="contained" color="primary" onClick={handleSave}>
-              Save
-            </StyledButton>
-            <StyledButton variant="contained" color="primary" onClick={handleLoad}>
-              Load
-            </StyledButton>
+          <StyledButton variant="contained" color="primary" onClick={handleSaveClick}>
+            Save
+          </StyledButton>
+          <StyledButton variant="contained" color="primary" onClick={handleLoadClick}>
+            Load
+          </StyledButton>
             <StyledButton
               variant="contained"
               color="primary"
@@ -226,6 +255,39 @@ const handleImportCSV = (event, isTeam) => {
               </StyledButton>
             </label>
           </ButtonContainer>
+          <Dialog
+            open={openDialog}
+            onClose={() => handleDialogClose(false)}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+          >
+            <DialogTitle id="alert-dialog-title">Save data?</DialogTitle>
+            <DialogContent>
+              <DialogContentText id="alert-dialog-description">
+                Would you like to save the data?
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={() => handleDialogClose(false)} color="primary">
+                No
+              </Button>
+              <Button onClick={() => handleDialogClose(true)} color="primary" autoFocus>
+                Yes
+              </Button>
+            </DialogActions>
+          </Dialog>
+          
+          {/* Add the Snackbar component for the Load button */}
+          <Snackbar
+            open={openSnackbar}
+            autoHideDuration={6000}
+            onClose={handleSnackbarClose}
+            anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+          >
+            <Alert onClose={handleSnackbarClose} severity="success" sx={{ width: '100%' }}>
+              {snackbarMessage}
+            </Alert>
+          </Snackbar>
           <Grid container spacing={4}>
           {teams.map((team) => (
             <TeamCard key={team.Tm + uniqueKey} team={team} handleUpdate={handleUpdate} setPlayers={setPlayers} players={players} />
